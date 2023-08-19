@@ -75,6 +75,7 @@ class _ItemScreenState extends State<ItemScreen> {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 53, 52, 52),
       body: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: width * 0.02, vertical: height * 0.01),
@@ -87,7 +88,7 @@ class _ItemScreenState extends State<ItemScreen> {
               padding: EdgeInsets.symmetric(
                   horizontal: width * 0.01, vertical: height * 0.01),
               decoration: BoxDecoration(
-                color: Colors.red,
+                // color: Colors.red,
                 borderRadius: BorderRadius.circular(23),
               ),
               child: Image.network(
@@ -117,12 +118,14 @@ class _ItemScreenState extends State<ItemScreen> {
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontSize: 11,
+                      color: Colors.white,
                     )),
                 const Text(
                   '00 : 30',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 11,
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -132,10 +135,18 @@ class _ItemScreenState extends State<ItemScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Icon(Icons.replay_10, size: 40),
+                const Icon(
+                  Icons.replay_10,
+                  size: 40,
+                  color: Colors.white,
+                ),
                 Row(
                   children: [
-                    const Icon(Icons.skip_previous, size: 40),
+                    const Icon(
+                      Icons.skip_previous,
+                      size: 40,
+                      color: Colors.white,
+                    ),
                     GestureDetector(
                         onTap: () {
                           if (_isPlaying) {
@@ -147,12 +158,23 @@ class _ItemScreenState extends State<ItemScreen> {
                             _isPlaying = !_isPlaying;
                           });
                         },
-                        child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow,
-                            size: 40)),
-                    const Icon(Icons.skip_next, size: 40)
+                        child: Icon(
+                          _isPlaying ? Icons.pause : Icons.play_arrow,
+                          size: 40,
+                          color: Colors.white,
+                        )),
+                    const Icon(
+                      Icons.skip_next,
+                      size: 40,
+                      color: Colors.white,
+                    )
                   ],
                 ),
-                const Icon(Icons.repeat_rounded, size: 40)
+                const Icon(
+                  Icons.repeat_rounded,
+                  size: 40,
+                  color: Colors.white,
+                )
               ],
             ),
           ],

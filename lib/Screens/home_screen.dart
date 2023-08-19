@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_player/Screens/item_screen.dart';
 import 'package:music_player/Services/songs_services.dart';
-import 'package:music_player/Utils/song_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,16 +15,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 53, 52, 52),
       appBar: AppBar(
-        title: const Text("Songs"),
+        title: const Text(
+          "Sheng Xue Music",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
+        backgroundColor: Colors.black87,
       ),
       body: FutureBuilder(
         future: songServices.getLatestSongs(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
             );
           } else if (!snapshot.hasData) {
             return const Center(child: Text('No data Available'));
@@ -34,20 +40,32 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text('Error ${snapshot.error}'),
             );
           } else {
-            return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+            return ListView.builder(
               itemCount: songServices.latestSongsList.length,
               itemBuilder: (context, index) {
-                return InkWell(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ItemScreen(
-                              songModel: songServices.latestSongsList[index]),
-                        )),
-                    child: SongCard(
-                        songModel: songServices.latestSongsList[index]));
+                return ListTile(
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ItemScreen(
+                            songModel: songServices.latestSongsList[index]),
+                      )),
+                  title: Text(
+                    songServices.latestSongsList[index].trackName.toString(),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    songServices.latestSongsList[index].artistName.toString(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        songServices.latestSongsList[index].artworkUrl100!),
+                  ),
+                );
               },
             );
           }
